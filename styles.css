@@ -1,0 +1,205 @@
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #333;
+    transition: background-image 0.5s ease-in-out;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5); /* 调整透明度为0.5 */
+    /* 移除模糊效果 */
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.avatar-container {
+    margin-bottom: 1.5rem;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    perspective: 1000px; /* 添加透视效果 */
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.avatar .front,
+.avatar .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 50%;
+}
+
+.avatar .front {
+    background-image: url('https://www.lambert1217.site/wp-content/uploads/2024/07/1721412316-微信图片_20240719124633.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 3px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.avatar .back {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+    border: 3px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-container:hover .avatar {
+    transform: rotateY(180deg);
+}
+
+h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.subtitle {
+    color: #666;
+    margin-top: 0;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.links a {
+    color: #333; /* 调整链接颜色以提高可读性 */
+    background-color: rgba(255, 255, 255, 0.5); /* 调整链接背景 */
+    text-decoration: none;
+    font-size: 1.3rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.links a:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-3px);
+    color: #333;
+}
+
+.hitokoto {
+    font-style: italic;
+    color: #333; /* 调整文字颜色以提高可读性 */
+    font-size: 0.9rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+}
+
+.qr-code {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    margin-top: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .links a {
+        font-size: 1.1rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.quote {
+    font-style: italic;
+    color: #333;
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+}
