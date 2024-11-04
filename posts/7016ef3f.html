@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Lambix-Engine：故事开篇 | 土狗博客</title><meta name="author" content="刘亚奇,1904310303@qq.com"><meta name="copyright" content="刘亚奇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lambix-Engine 项目项目背景Lambix-Engine 是我计划开发的一款 3D 游戏引擎，也是我的本科毕业设计的一部分。这个引擎的目标是支持多平台（Windows、Linux、Mac）运行，最终能够成为一个跨平台的 3D 游戏开发工具。在开发过程中，我不仅仅是想实现一个可以渲染和展示 3D 图形的引擎，还希望通过这个项目积累更多关于引擎架构和图形渲染技术的理解。 目前进展基础框架目前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lambix-Engine：故事开篇">
+<meta property="og:url" content="https://lambert1217.github.io/posts/7016ef3f.html">
+<meta property="og:site_name" content="土狗博客">
+<meta property="og:description" content="Lambix-Engine 项目项目背景Lambix-Engine 是我计划开发的一款 3D 游戏引擎，也是我的本科毕业设计的一部分。这个引擎的目标是支持多平台（Windows、Linux、Mac）运行，最终能够成为一个跨平台的 3D 游戏开发工具。在开发过程中，我不仅仅是想实现一个可以渲染和展示 3D 图形的引擎，还希望通过这个项目积累更多关于引擎架构和图形渲染技术的理解。 目前进展基础框架目前">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lambert1217.github.io/img/avatar.jpg">
+<meta property="article:published_time" content="2024-11-04T11:45:22.000Z">
+<meta property="article:modified_time" content="2024-11-04T12:18:27.342Z">
+<meta property="article:author" content="刘亚奇">
+<meta property="article:tag" content="Lambix Engine">
+<meta property="article:tag" content="dev">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lambert1217.github.io/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://lambert1217.github.io/posts/7016ef3f.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lambix-Engine：故事开篇',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-04 20:18:27'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/top.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">土狗博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Lambix-Engine：故事开篇</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Lambix-Engine：故事开篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-04T11:45:22.000Z" title="发表于 2024-11-04 19:45:22">2024-11-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-04T12:18:27.342Z" title="更新于 2024-11-04 20:18:27">2024-11-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Lambix-Engine/">Lambix Engine</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Lambix-Engine/%E5%B7%A5%E7%A8%8B%E8%BF%9B%E5%BA%A6/">工程进度</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Lambix-Engine-项目"><a href="#Lambix-Engine-项目" class="headerlink" title="Lambix-Engine 项目"></a><a target="_blank" rel="noopener" href="https://github.com/Lambert1217/Lambix.git">Lambix-Engine</a> 项目</h1><h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p><a target="_blank" rel="noopener" href="https://github.com/Lambert1217/Lambix.git">Lambix-Engine</a> 是我计划开发的一款 3D 游戏引擎，也是我的本科毕业设计的一部分。这个引擎的目标是支持多平台（Windows、Linux、Mac）运行，最终能够成为一个跨平台的 3D 游戏开发工具。在开发过程中，我不仅仅是想实现一个可以渲染和展示 3D 图形的引擎，还希望通过这个项目积累更多关于引擎架构和图形渲染技术的理解。</p>
+<h2 id="目前进展"><a href="#目前进展" class="headerlink" title="目前进展"></a>目前进展</h2><h3 id="基础框架"><a href="#基础框架" class="headerlink" title="基础框架"></a>基础框架</h3><p>目前我已经搭建了 Lambix-Engine 的基础框架，主要实现了以下几个核心模块：</p>
+<ul>
+<li><strong>日志系统</strong>：使用 <code>spdlog</code> 库实现了日志记录功能，方便调试和记录引擎运行时的各类信息。</li>
+<li><strong>事件系统</strong>：开发了一个简单的事件系统，初步实现了基础的事件处理功能。</li>
+<li><strong>窗口管理</strong>：利用 <code>GLFW</code> 库成功创建了窗口，并计划在此基础上扩展以支持多平台。</li>
+</ul>
+<h3 id="渲染接口"><a href="#渲染接口" class="headerlink" title="渲染接口"></a>渲染接口</h3><p>我的下一个主要任务是实现渲染模块。为了让引擎具有更高的扩展性，我打算在引擎中抽象出一套图形渲染接口。目前的计划是在毕业设计中先使用 OpenGL 完成渲染的基本功能，未来可能逐步添加对 Vulkan 的支持，从而实现多 API 渲染的灵活性。</p>
+<h2 id="Lambix-Engine-渲染与-ECS-系统开发规划"><a href="#Lambix-Engine-渲染与-ECS-系统开发规划" class="headerlink" title="Lambix-Engine 渲染与 ECS 系统开发规划"></a>Lambix-Engine 渲染与 ECS 系统开发规划</h2><p>本规划将 ECS 系统与渲染系统相结合，按照实现顺序逐步构建 Lambix-Engine 的核心框架。功能设计从基础组件开始，逐步实现多层次的渲染功能和 ECS 模块，以便保证引擎的模块化和扩展性。</p>
+<hr>
+<h3 id="阶段一：基础架构搭建"><a href="#阶段一：基础架构搭建" class="headerlink" title="阶段一：基础架构搭建"></a>阶段一：基础架构搭建</h3><ul>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<strong>窗口和上下文创建</strong></p>
+<ul>
+<li>使用 GLFW 创建渲染窗口与上下文，支持初始配置（分辨率等）。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>渲染循环</strong></p>
+<ul>
+<li>实现主渲染循环，包括清除屏幕、更新、交换缓冲区，确保稳定帧率。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>基础 ECS 系统</strong></p>
+<ul>
+<li><strong>实体管理</strong>：实现实体创建与销毁，并分配唯一 ID。</li>
+<li><strong>组件管理</strong>：实现组件添加、删除和查找，建立组件池以优化存储。</li>
+<li><strong>系统管理</strong>：支持系统注册、优先级和执行顺序管理。</li>
+</ul>
+</li>
+</ul>
+<h3 id="阶段二：核心渲染与-ECS-集成"><a href="#阶段二：核心渲染与-ECS-集成" class="headerlink" title="阶段二：核心渲染与 ECS 集成"></a>阶段二：核心渲染与 ECS 集成</h3><ul>
+<li><p><input disabled="" type="checkbox"> 
+<strong>基本着色器系统</strong></p>
+<ul>
+<li>创建顶点、片元着色器，支持 GLSL 着色器的加载、编译和链接。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>几何体绘制</strong></p>
+<ul>
+<li>支持简单几何体的绘制（如三角形和四边形），为 ECS 系统渲染功能打下基础。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>Transform 组件与系统</strong></p>
+<ul>
+<li><strong>Transform 组件</strong>：存储位移、旋转、缩放等信息。</li>
+<li><strong>Transform 系统</strong>：计算物体的世界变换矩阵，处理层级更新（父子关系）。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>Mesh 组件与渲染系统</strong></p>
+<ul>
+<li><strong>Mesh 组件</strong>：存储网格数据（顶点、法线、UV 坐标等）。</li>
+<li><strong>Mesh 渲染系统</strong>：渲染具有 Mesh 组件的实体，将组件数据传入渲染管线。</li>
+</ul>
+</li>
+</ul>
+<h3 id="阶段三：资源管理与基础光照"><a href="#阶段三：资源管理与基础光照" class="headerlink" title="阶段三：资源管理与基础光照"></a>阶段三：资源管理与基础光照</h3><ul>
+<li><p><input disabled="" type="checkbox"> 
+<strong>资源加载与管理</strong></p>
+<ul>
+<li>纹理加载（支持 PNG、JPG 格式），并绑定和管理纹理资源。</li>
+<li>支持模型文件加载，解析顶点、法线、UV 数据。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>材质系统与 Material 组件</strong></p>
+<ul>
+<li>实现基本材质属性（颜色、贴图），支持法线贴图等效果。</li>
+<li><strong>Material 组件</strong>：关联材质数据并支持 Mesh 渲染系统调用。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>基础光照系统与 Light 组件</strong></p>
+<ul>
+<li><strong>Light 组件</strong>：支持环境光、点光源、方向光和聚光灯。</li>
+<li><strong>光照系统</strong>：实现 Phong 光照模型，支持环境光、漫反射、镜面反射。</li>
+</ul>
+</li>
+</ul>
+<h3 id="阶段四：相机系统与扩展渲染功能"><a href="#阶段四：相机系统与扩展渲染功能" class="headerlink" title="阶段四：相机系统与扩展渲染功能"></a>阶段四：相机系统与扩展渲染功能</h3><ul>
+<li><p><input disabled="" type="checkbox"> 
+<strong>Camera 组件与系统</strong></p>
+<ul>
+<li><strong>Camera 组件</strong>：提供相机位置和视角控制。</li>
+<li><strong>Camera 系统</strong>：更新视角和投影矩阵，供渲染使用。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>阴影映射</strong></p>
+<ul>
+<li>实现基于深度图的阴影映射，支持方向光和点光源的阴影效果。</li>
+</ul>
+</li>
+</ul>
+<h3 id="阶段五：优化与高效渲染"><a href="#阶段五：优化与高效渲染" class="headerlink" title="阶段五：优化与高效渲染"></a>阶段五：优化与高效渲染</h3><ul>
+<li><p><input disabled="" type="checkbox"> 
+<strong>后处理效果</strong></p>
+<ul>
+<li>引入帧缓冲区，支持后处理效果如 HDR、景深、屏幕空间环境光遮蔽。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>视锥裁剪系统</strong></p>
+<ul>
+<li>通过视锥体裁剪剔除视野外的物体，优化渲染性能。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>批处理渲染系统</strong></p>
+<ul>
+<li>实现相同材质的物体批量渲染，减少绘制调用次数。</li>
+</ul>
+</li>
+</ul>
+<h3 id="阶段六：多平台支持与未来扩展"><a href="#阶段六：多平台支持与未来扩展" class="headerlink" title="阶段六：多平台支持与未来扩展"></a>阶段六：多平台支持与未来扩展</h3><ul>
+<li><p><input disabled="" type="checkbox"> 
+<strong>跨平台接口</strong></p>
+<ul>
+<li>抽象渲染接口，便于在不同平台之间切换渲染 API。首先实现 OpenGL，预留 Vulkan 支持接口。</li>
+</ul>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<strong>事件系统</strong></p>
+<ul>
+<li>支持事件订阅和分发，提供系统间的通信机制，减少系统间耦合。</li>
+</ul>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<strong>脚本系统</strong></p>
+<ul>
+<li>实现脚本接口，支持 Lua 或 Python，赋能 ECS 系统中的实体控制。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>以上步骤将帮助 Lambix-Engine 在本科毕业设计中逐步搭建 ECS 和渲染系统的核心框架，并为未来的高级功能提供良好的架构基础。</p>
+<h2 id="未来展望"><a href="#未来展望" class="headerlink" title="未来展望"></a>未来展望</h2><p>Lambix-Engine 对我来说是一个长期的工程，毕业设计只是一个起点。通过这个项目，我希望深入学习 3D 渲染和引擎架构设计的方方面面，积累丰富的开发经验。未来，如果时间和精力允许，我还打算把这个引擎开放给社区，和更多的开发者一起完善它。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>目前 Lambix-Engine 的开发仍处于初级阶段，但随着时间推移，我会不断更新项目的进展。这不仅是一个学习和成长的过程，也是我对游戏引擎开发领域的探索旅程。如果你对 Lambix-Engine 或 3D 引擎开发感兴趣，欢迎一起讨论和交流。</p>
+<p>敬请期待后续更新！</p>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://lambert1217.github.io">刘亚奇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://lambert1217.github.io/posts/7016ef3f.html">https://lambert1217.github.io/posts/7016ef3f.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://lambert1217.github.io" target="_blank">土狗博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Lambix-Engine/">Lambix Engine</a><a class="post-meta__tags" href="/tags/dev/">dev</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">刘亚奇</div><div class="author-info-description">小土狗的博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lambert1217"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Lambert1217" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:1904310303@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">考研上岸</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lambix-Engine-%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">Lambix-Engine 项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.</span> <span class="toc-text">项目背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E8%BF%9B%E5%B1%95"><span class="toc-number">1.2.</span> <span class="toc-text">目前进展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">基础框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.2.2.</span> <span class="toc-text">渲染接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambix-Engine-%E6%B8%B2%E6%9F%93%E4%B8%8E-ECS-%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E8%A7%84%E5%88%92"><span class="toc-number">1.3.</span> <span class="toc-text">Lambix-Engine 渲染与 ECS 系统开发规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9A%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E6%90%AD%E5%BB%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">阶段一：基础架构搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E6%A0%B8%E5%BF%83%E6%B8%B2%E6%9F%93%E4%B8%8E-ECS-%E9%9B%86%E6%88%90"><span class="toc-number">1.3.2.</span> <span class="toc-text">阶段二：核心渲染与 ECS 集成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9A%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%85%89%E7%85%A7"><span class="toc-number">1.3.3.</span> <span class="toc-text">阶段三：资源管理与基础光照</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E5%9B%9B%EF%BC%9A%E7%9B%B8%E6%9C%BA%E7%B3%BB%E7%BB%9F%E4%B8%8E%E6%89%A9%E5%B1%95%E6%B8%B2%E6%9F%93%E5%8A%9F%E8%83%BD"><span class="toc-number">1.3.4.</span> <span class="toc-text">阶段四：相机系统与扩展渲染功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%94%EF%BC%9A%E4%BC%98%E5%8C%96%E4%B8%8E%E9%AB%98%E6%95%88%E6%B8%B2%E6%9F%93"><span class="toc-number">1.3.5.</span> <span class="toc-text">阶段五：优化与高效渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E5%85%AD%EF%BC%9A%E5%A4%9A%E5%B9%B3%E5%8F%B0%E6%94%AF%E6%8C%81%E4%B8%8E%E6%9C%AA%E6%9D%A5%E6%89%A9%E5%B1%95"><span class="toc-number">1.3.6.</span> <span class="toc-text">阶段六：多平台支持与未来扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B"><span class="toc-number">1.4.</span> <span class="toc-text">未来展望</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7016ef3f.html" title="Lambix-Engine：故事开篇">Lambix-Engine：故事开篇</a><time datetime="2024-11-04T11:45:22.000Z" title="发表于 2024-11-04 19:45:22">2024-11-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By 刘亚奇</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到小土狗的博客</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
